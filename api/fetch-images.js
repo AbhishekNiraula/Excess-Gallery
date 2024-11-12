@@ -1,17 +1,22 @@
 const axios = require('axios');
+
 module.exports = async (req, res) => {
   const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
-  let res;
   try {
-	res = (await cloudinary.v2.search
-		.expression('resource_type:image')
-		.sort_by('public_id', 'desc')
-		.max_results(150)
-		.execute());
-		res.status(200).json(res.resources);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Failed to fetch images from Cloudinary' });
-	}
+    const response = await axios.get(
+      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image`,
+      {
+        auth: {
+          username: API_KEY,
+          password: API_SECRET,
+        },
+      }
+    );
+
+    res.status(200).json(response.data.resources);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch images from Cloudinary' });
+  }
 };
