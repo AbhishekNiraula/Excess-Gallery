@@ -1,6 +1,4 @@
 const axios = require('axios');
-
-
 module.exports = async (req, res) => {
   const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
@@ -11,8 +9,9 @@ module.exports = async (req, res) => {
 		.sort_by('public_id', 'desc')
 		.max_results(150)
 		.execute());
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ error: 'Failed to fetch images from Cloudinary' });
-		}
+		res.status(200).json(res.resources);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Failed to fetch images from Cloudinary' });
 	}
+};
