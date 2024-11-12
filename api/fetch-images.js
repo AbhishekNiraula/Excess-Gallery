@@ -1,15 +1,9 @@
 const cloudinary = require('cloudinary').v2;
 
-cloudinary.config({
-	cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-	api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-	api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-});
-
 module.exports = async (req, res) => {
 
   try {
-	const response = (await cloudinary.v2.search
+	const response = (await cloudinary.search
 		.expression('resource_type:image')
 		.sort_by('public_id', 'desc')
 		.max_results(150)
