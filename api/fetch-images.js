@@ -1,7 +1,5 @@
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
-import {Cloudinary} from "@cloudinary/url-gen";
-import {AdvancedImage} from '@cloudinary/react';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -18,12 +16,14 @@ module.exports = async (req, res) => {
       .execute();
 
     console.log(response.resources);
-	const images = response.resources.map((image) => ({
-		...image,
-		secure_url: cloudinary.image(image.public_id, {
-		  format: 'jpg',
-		}),
-	  }));
+
+    const images = response.resources.map((image) => ({
+      ...image,
+      secure_url: cloudinary.url(image.public_id, {
+        format: 'jpg',
+        secure: true,
+      }),
+    }));
 
     res.status(200).json(images);
   } catch (error) {
