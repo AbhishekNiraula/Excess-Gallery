@@ -20,9 +20,8 @@ module.exports = async (req, res) => {
     console.log(response.resources);
 	const images = response.resources.map((image) => ({
 		...image,
-		secure_url: cloudinary.url(image.public_id, {
+		secure_url: cloudinary.image(image.public_id, {
 		  format: 'jpg',
-		  secure: true,
 		}),
 	  }));
 
