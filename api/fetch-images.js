@@ -15,8 +15,6 @@ module.exports = async (req, res) => {
       .max_results(150)
       .execute();
 
-    console.log(response.resources);
-
     const images = response.resources.map((image) => ({
       ...image,
 	  url: cloudinary.url(image.public_id, {
