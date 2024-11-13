@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 				secure: false,
 			}),
 			secure_url: cloudinary.url(image.public_id, {
-				format: 'jpg',
+				format: 'webp',
 				secure: true,
 			}),
 		}));
