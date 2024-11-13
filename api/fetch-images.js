@@ -15,19 +15,11 @@ module.exports = async (req, res) => {
       .max_results(150)
       .execute();
 
-	const images = result.resources.map((image) => ({
-		...image,
-		secure_url: cloudinary.image(image.public_id, {
-			transformation: [
-				{fetch_format: 'jpg'}
-			]
-		}),
-	}));
-	console.log(images);
+    console.log(response.resources);
 
     res.status(200).json(response.resources);
-  	} catch (error) {
-    	console.error('Error fetching images from Cloudinary:', error);
-    	res.status(500).json({ error: 'Failed to fetch images from Cloudinary', details: error.message });
-  	}
+  } catch (error) {
+    console.error('Error fetching images from Cloudinary:', error);
+    res.status(500).json({ error: 'Failed to fetch images from Cloudinary', details: error.message });
+  }
 };
