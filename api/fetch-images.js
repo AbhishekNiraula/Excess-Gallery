@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
 		const response = await cloudinary.search
 			.expression('resource_type:image')
 			.sort_by('public_id', 'desc')
-			.max_results(150)
 			.execute();
 
 		const images = response.resources.map((image) => ({
